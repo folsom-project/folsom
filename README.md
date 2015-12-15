@@ -8,7 +8,7 @@ First, regarding using folsom and folsom_webmachine together. To make sure you h
 
 You need a (preferably recent) version of Erlang installed but that should be it.
 
-       ./rebar get-deps compile
+       ./rebar3 compile
 
 folsom can be run standalone or embedded in an Erlang application.
 
