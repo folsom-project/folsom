@@ -397,6 +397,13 @@ notify(Name, Value, histogram, false) ->
     add_handler(histogram, Name),
     folsom_metrics_histogram:update(Name, Value),
     ok;
+notify(Name, Value, {histogram, SampleType}, true) ->
+    folsom_metrics_histogram:update(Name, Value),
+    ok;
+notify(Name, Value, {histogram, SampleType}, false) ->
+    add_handler(histogram, Name, SampleType),
+    folsom_metrics_histogram:update(Name, Value),
+    ok;
 notify(Name, Value, history, true) ->
     [{_, #metric{history_size = HistorySize}}] = ets:lookup(?FOLSOM_TABLE, Name),
     folsom_metrics_history:update(Name, HistorySize, Value),
@@ -436,4 +443,3 @@ notify(Name, Value, spiral, false) ->
     ok;
 notify(_, _, Type, _) ->
     {error, Type, unsupported_metric_type}.
-
