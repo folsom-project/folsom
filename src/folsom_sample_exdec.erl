@@ -73,7 +73,7 @@ update(#exdec{reservoir = Reservoir, alpha = Alpha, start = Start, n = N, seed =
     % when N is not =< Size we need to check to see if the priority of
     % the new value is greater than the first (smallest) existing priority
 
-    {Rand, NewSeed} = random:uniform_s(N, Seed),
+    {Rand, NewSeed} = rand:uniform_s(N, Seed),
     Priority = priority(Alpha, Timestamp, Start, Rand),
     First = ets:first(Reservoir),
 
