@@ -64,7 +64,7 @@ get_values(#exdec{reservoir = Reservoir}) ->
 update(#exdec{reservoir = Reservoir, alpha = Alpha, start = Start, n = N, size = Size, seed = Seed} = Sample, Value, Timestamp) when N =< Size ->
     % since N is =< Size we can just add the new value to the sample
 
-    {Rand, New_seed} = random:uniform_s(N, Seed),
+    {Rand, New_seed} = rand:uniform_s(N, Seed),
     Priority = priority(Alpha, Timestamp, Start, Rand),
     true = ets:insert(Reservoir, {Priority, Value}),
 
