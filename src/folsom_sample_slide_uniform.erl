@@ -39,6 +39,22 @@ new({Window, SampleSize}) ->
     Pid = folsom_sample_slide_sup:start_slide_server(?MODULE, Sample#slide_uniform.reservoir, Sample#slide_uniform.window),
     Sample#slide_uniform{server=Pid}.
 
+-ifdef(rand_module).
+update(#slide_uniform{reservoir = Reservoir, size = Size} = Sample0, Value) ->
+    Now = folsom_utils:timestamp(),
+    Moment = folsom_utils:now_epoch(Now),
+    MCnt = folsom_utils:update_counter(Reservoir, Moment, 1),
+    Sample = case MCnt > Size of
+                 true ->
+                     {Rnd, _NewSeed} = rand:uniform_s(MCnt, Now),
+                     maybe_update(Reservoir, {{Moment, Rnd}, Value}, Size),
+                     Sample0;
+                 false ->
+                      ets:insert(Reservoir, {{Moment, MCnt}, Value}),
+                      Sample0
+    end,
+    Sample.
+-else.
 update(#slide_uniform{reservoir = Reservoir, size = Size} = Sample0, Value) ->
     Now = folsom_utils:timestamp(),
     Moment = folsom_utils:now_epoch(Now),
@@ -53,6 +69,7 @@ update(#slide_uniform{reservoir = Reservoir, size = Size} = Sample0, Value) ->
                       Sample0
     end,
     Sample.
+-endif.
 
 resize(Sample, NewSize) ->
     folsom_sample_slide_server:resize(Sample#slide.server, NewSize),

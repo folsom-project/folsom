@@ -61,6 +61,25 @@ get_values(#exdec{reservoir = Reservoir}) ->
 
 % internal api
 
+-ifdef(rand_module).
+update(#exdec{reservoir = Reservoir, alpha = Alpha, start = Start, n = N, size = Size, seed = Seed} = Sample, Value, Timestamp) when N =< Size ->
+    % since N is =< Size we can just add the new value to the sample
+
+    {Rand, New_seed} = rand:uniform_s(N, Seed),
+    Priority = priority(Alpha, Timestamp, Start, Rand),
+    true = ets:insert(Reservoir, {Priority, Value}),
+
+    Sample#exdec{n = folsom_utils:get_ets_size(Reservoir), seed = New_seed};
+update(#exdec{reservoir = Reservoir, alpha = Alpha, start = Start, n = N, seed = Seed} = Sample, Value, Timestamp) ->
+    % when N is not =< Size we need to check to see if the priority of
+    % the new value is greater than the first (smallest) existing priority
+
+    {Rand, NewSeed} = rand:uniform_s(N, Seed),
+    Priority = priority(Alpha, Timestamp, Start, Rand),
+    First = ets:first(Reservoir),
+
+    update_on_priority(Sample, First, Priority, NewSeed, Value).
+-else.
 update(#exdec{reservoir = Reservoir, alpha = Alpha, start = Start, n = N, size = Size, seed = Seed} = Sample, Value, Timestamp) when N =< Size ->
     % since N is =< Size we can just add the new value to the sample
 
@@ -78,6 +97,7 @@ update(#exdec{reservoir = Reservoir, alpha = Alpha, start = Start, n = N, seed =
     First = ets:first(Reservoir),
 
     update_on_priority(Sample, First, Priority, NewSeed, Value).
+-endif.
 
 update_on_priority(#exdec{reservoir = Reservoir} = Sample, First, Priority, NewSeed, Value) when First < Priority ->
     true = case ets:insert_new(Reservoir, {Priority, Value}) of
