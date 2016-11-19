@@ -109,6 +109,6 @@ uniform_s(N, Seed) ->
     %% rand module use a different rand methos, doesn't need to use the seed
     {rand:uniform(N), Seed}.
 -else.
-uniform_s(N, State) ->
+uniform_s(N, Seed) ->
     random:uniform_s(N, Seed).
 -endif.
