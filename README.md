@@ -14,12 +14,13 @@ folsom can be run standalone or embedded in an Erlang application.
 
        $ erl -pa ebin deps/*/ebin
 
+       > application:ensure_all_started(bear). % start dependency first
        > folsom:start(). % this creates the needed ETS tables and starts a gen_server
 
 You can also start it as an application:
 
        $ erl -pa ebin deps/*/ebin
-       > application:start(folsom).
+       > application:ensure_all_started(folsom).
 
        $ erl -pa ebin deps/*/ebin -s folsom
 
