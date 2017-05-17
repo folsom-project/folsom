@@ -33,7 +33,8 @@
          timestamp/0,
          get_ets_size/1,
          update_counter/3,
-         update_counter_no_exceptions/3
+         update_counter_no_exceptions/3,
+         uniform_s/2
         ]).
 
 to_atom(Binary) when is_binary(Binary) ->
@@ -102,3 +103,12 @@ update_counter_no_exceptions(Tid, Key, Value) when is_integer(Value) ->
         _ ->
             ets:update_counter(Tid, Key, Value)
     end.
+
+-ifdef(rand_module).
+uniform_s(N, Seed) ->
+    %% rand module use a different rand methos, doesn't need to use the seed
+    {rand:uniform(N), Seed}.
+-else.
+uniform_s(N, Seed) ->
+    random:uniform_s(N, Seed).
+-endif.
