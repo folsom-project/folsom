@@ -15,6 +15,12 @@
 -define(DEFAULT_INTERVAL, 5000).
 -define(DEFAULT_SAMPLE_TYPE, uniform).
 
+-ifdef(use_rand).
+-define(SEED, rand:seed(exsplus)).
+-else.
+-define(SEED, random:seed(os:timestamp())).
+-endif.
+
 -record(spiral, {
           tid = folsom_metrics_histogram_ets:new(folsom_spiral,
                                                  [set,
@@ -36,7 +42,7 @@
           window = ?DEFAULT_SLIDING_WINDOW,
           size = ?DEFAULT_SIZE,
           reservoir = folsom_metrics_histogram_ets:new(folsom_slide_uniform,[set, {write_concurrency, true}, public]),
-          seed = os:timestamp(),
+          seed = ?SEED,
           server
          }).
 
@@ -44,7 +50,7 @@
           size = ?DEFAULT_SIZE,
           n = 1,
           reservoir = folsom_metrics_histogram_ets:new(folsom_uniform,[set, {write_concurrency, true}, public]),
-          seed = os:timestamp()
+          seed = ?SEED
          }).
 
 -record(exdec, {
@@ -52,7 +58,7 @@
           next = 0,
           alpha = ?DEFAULT_ALPHA,
           size = ?DEFAULT_SIZE,
-          seed = os:timestamp(),
+          seed = ?SEED,
           n = 1,
           reservoir = folsom_metrics_histogram_ets:new(folsom_exdec,[ordered_set, {write_concurrency, true}, public])
          }).
