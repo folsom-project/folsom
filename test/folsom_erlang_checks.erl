@@ -479,8 +479,14 @@ for(N, LoopCount, Counter) ->
     for(N, LoopCount + 1, Counter).
 
 cpu_topology() ->
-    ?debugFmt("Testing various CPU topologies ...~n", []),
-    {ok, [Data]} = file:consult("test/cpu_topo_data"),
+    ?debugMsg("Testing various CPU topologies ...~n"),
+    P = "test/cpu_topo_data",
+    Path = case filelib:is_regular(P) of
+               true  -> P;
+               false -> filename:join("..", P)
+    end,
+    {ok, [Data]} = file:consult(Path),
+
     [run_convert_and_jsonify(Item) || Item <- Data].
 
 
