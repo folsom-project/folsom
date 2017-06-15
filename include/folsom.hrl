@@ -18,7 +18,7 @@
 -ifdef(use_rand).
 -define(SEED, rand:seed(exsplus)).
 -else.
--define(SEED, random:seed(os:timestamp())).
+-define(SEED, os:timestamp()).
 -endif.
 
 -record(spiral, {
