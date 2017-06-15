@@ -18,16 +18,7 @@
 -ifdef(use_rand).
 -define(SEED, rand:seed(exsplus)).
 -else.
--define(SEED, fun() ->
-                      case random:seed(os:timestamp()) of
-                          undefined ->
-                              random:seed(os:timestamp());
-                          State ->
-                              State
-                      end
-              end
-       ).
-
+-define(SEED, os:timestamp()).
 -endif.
 
 -record(spiral, {
