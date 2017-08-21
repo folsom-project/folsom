@@ -68,7 +68,7 @@ tick(Name) ->
            fifteen = FifteenMin,
            day = OneDay} = Meter = get_value(Name),
 
-    Instant1 = folsom_edma:tick(Instant),
+    Instant1 = folsom_ewma:tick(Instant),
     OneMin1 = folsom_ewma:tick(OneMin),
     FiveMin1 = folsom_ewma:tick(FiveMin),
     FifteenMin1 = folsom_ewma:tick(FifteenMin),
