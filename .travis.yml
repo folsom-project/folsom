@@ -5,7 +5,8 @@ language: erlang
 script: ./rebar get-deps compile && ./rebar eunit skip_deps=true
 
 otp_release:
-  - 20.0
+  - 21.0
+  - 20.3
   - 19.3
   - 18.3
   - 17.5
