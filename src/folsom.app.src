@@ -16,5 +16,5 @@
   {mod, {folsom, []}},
   {maintainers, ["Joe Williams"]},
   {licenses, ["Apache 2"]},
-  {links, [{"Github", "https://github.com/project-folsom/folsom"}]}
+  {links, [{"Github", "https://github.com/folsom-project/folsom"}]}
  ]}.
