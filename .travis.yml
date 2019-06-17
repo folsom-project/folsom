@@ -2,7 +2,9 @@ language: erlang
 
 #script: rebar3 eunit
 #install: true
-script: ./rebar get-deps compile && ./rebar eunit skip_deps=true
+script:
+    - wget https://github.com/erlang/rebar3/releases/download/3.11.1/rebar3 && chmod +x rebar3 && ./rebar3 update
+    - ./rebar3 do compile, eunit
 
 otp_release:
   - 22.0.2

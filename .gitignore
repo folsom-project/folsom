@@ -5,4 +5,3 @@ ebin/*
 *~
 _build/
 *.coverdata
-rebar.lock
