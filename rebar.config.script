@@ -6,7 +6,8 @@ case erlang:function_exported(rebar3, main, 1) of
         %% profiles
         [{deps, [
             {bear, ".*", {git, "https://github.com/folsom-project/bear.git", {tag, "0.8.7"}}},
-            {meck, ".*", {git, "https://github.com/eproxus/meck", {tag, "0.8.13"}}}
+            {meck, ".*", {git, "https://github.com/eproxus/meck", {tag, "0.8.13"}}},
+            {proper, ".*", {git, "https://github.com/proper-testing/proper", {tag, "v1.3"}}}
         ]} | lists:keydelete(deps, 1, CONFIG)]
 end.
 
