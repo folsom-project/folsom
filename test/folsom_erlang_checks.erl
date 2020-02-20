@@ -130,7 +130,15 @@ populate_metrics() ->
 
     [ok = folsom_metrics:notify({<<"hugedata">>, Value}) || Value <- ?HUGEDATA],
 
-    [ok = folsom_metrics:notify({exdec, Value}) || Value <- lists:seq(1, 100000)],
+    [ok = folsom_metrics:notify({exdec, Value}) || Value <- lists:seq(1, 50000)],
+
+    %% Force a priority change in folson_sample_exdec:priority/1
+    receive
+    after 1000 ->
+            ok
+    end,
+
+    [ok = folsom_metrics:notify({exdec, Value}) || Value <- lists:seq(50000, 100000)],
 
     [ok = folsom_metrics:notify({none, Value}) || Value <- ?DATA],
 
