@@ -155,8 +155,10 @@ get_value(Name) ->
 calc_mean_rate(_, 0) ->
     0.0;
 calc_mean_rate(Start, Count) ->
-    Elapsed = folsom_utils:now_epoch_micro() - Start,
-    Count / Elapsed.
+    case folsom_utils:now_epoch_micro() - Start of
+        0 -> 0.0;
+        Elapsed -> Count / Elapsed
+    end.
 
 calc_acceleration(Rate1, Rate2, Interval) ->
      % most current velocity minus previous velocity
