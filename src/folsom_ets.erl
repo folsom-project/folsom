@@ -397,7 +397,7 @@ notify(Name, Value, histogram, false) ->
     add_handler(histogram, Name),
     folsom_metrics_histogram:update(Name, Value),
     ok;
-notify(Name, Value, {histogram, SampleType}, true) ->
+notify(Name, Value, {histogram, _SampleType}, true) ->
     folsom_metrics_histogram:update(Name, Value),
     ok;
 notify(Name, Value, {histogram, SampleType}, false) ->
