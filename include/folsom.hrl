@@ -84,6 +84,12 @@
           tid
           }).
 
+-record(metric, {
+          tags = sets:new(),
+          type,
+          history_size
+         }).
+
 -define(SYSTEM_INFO, [
                       allocated_areas,
                       allocator,
