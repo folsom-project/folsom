@@ -111,7 +111,7 @@ minute the `reservoir` may get pretty big and so it will take more time to calcu
 This is a sliding window in time over a stream of readings with a random uniform sample per second, to bound the size of the total number of readings. The maximum size of the reservoir will be
  `window size * sample size`. Default is a window of 60 seconds and a sample size of 1028. Again, you can change these at creation time:
 
-    > folsom_metrics:new_histogram(Name, slide_uniform, {Secs::interger(), Size::integer()).
+    > folsom_metrics:new_histogram(Name, slide_uniform, {Secs::integer(), Size::integer()).
 
 ##### Histories
 

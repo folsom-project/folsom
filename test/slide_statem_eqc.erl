@@ -96,7 +96,7 @@ postcondition(#state{values=Values0, moment=Moment}, {call, ?MODULE, get_values,
             true;
         _ ->
             {"get values", {"model", lists:sort(Values)},
-             {"smaple", lists:sort(Res)}}
+             {"sample", lists:sort(Res)}}
     end;
 postcondition(#state{values=Values, sample=Sample, moment=Moment}, {call, ?MODULE, trim, _}, _TrimCnt) ->
     %% check that values and the actual table contents are the same after a trim

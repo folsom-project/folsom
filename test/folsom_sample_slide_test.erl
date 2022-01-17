@@ -95,21 +95,21 @@ exercise() ->
     ?assertEqual((?RUNTIME * ?READINGS) - ((?RUNTIME - ?WINDOW - 1) * ?READINGS), Trimmed2),
     check_table(Slide, []),
 
-    %% trim shuld throw badarg in the case of nonexistant ETS tables
-    NonExistant = ets:new(non_existant, []),
-    ets:delete(NonExistant),
-    ?assertError(badarg, folsom_sample_slide:trim(NonExistant, ?WINDOW)),
-    ?assertError(badarg, folsom_sample_slide_uniform:trim(NonExistant, ?WINDOW)),
+    %% trim should throw badarg in the case of nonexistent ETS tables
+    NonExistent = ets:new(non_existant, []),
+    ets:delete(NonExistent),
+    ?assertError(badarg, folsom_sample_slide:trim(NonExistent, ?WINDOW)),
+    ?assertError(badarg, folsom_sample_slide_uniform:trim(NonExistent, ?WINDOW)),
 
     %% The slide server exits with reason normal in case the ets table it's trimming goes away
     process_flag(trap_exit, true),
-    {ok, SlideServer} = folsom_sample_slide_server:start_link(folsom_sample_slide, NonExistant, 1),
+    {ok, SlideServer} = folsom_sample_slide_server:start_link(folsom_sample_slide, NonExistent, 1),
     ExitMsg = wait_for_exit(SlideServer, timer:seconds(2)),
     ?assertMatch({'EXIT', SlideServer, normal}, ExitMsg),
     process_flag(trap_exit, false),
     ok.
-	
-	
+
+
 expand_window() ->
     %% create a new histogram
     %% will leave the trim server running, as resize() needs it
@@ -126,7 +126,7 @@ expand_window() ->
                          Moments),
     %% are all readings in the table?
     check_table(Slide, Moments),
-    
+
     %% get values only returns last ?WINDOW seconds
     ExpectedValues = lists:sort(lists:flatten([lists:duplicate(?READINGS, N) ||
                                                   N <- lists:seq(?RUNTIME - ?WINDOW, ?RUNTIME)])),
@@ -141,8 +141,8 @@ expand_window() ->
                                                   N <- lists:seq(?RUNTIME - ?DOUBLE_WINDOW, ?RUNTIME)])),
     NewValues = lists:sort(folsom_sample_slide:get_values(NewSlide)),
     ?assertEqual(NewExpectedValues, NewValues),
-    
-    
+
+
     %% trim the table
     Trimmed = folsom_sample_slide:trim(NewSlide#slide.reservoir, ?DOUBLE_WINDOW),
     ?assertEqual((?RUNTIME - ?DOUBLE_WINDOW - 1) * ?READINGS, Trimmed),
@@ -174,7 +174,7 @@ shrink_window() ->
                          Moments),
     %% are all readings in the table?
     check_table(Slide, Moments),
-    
+
     %% get values only returns last ?DOUBLE_WINDOW seconds
     ExpectedValues = lists:sort(lists:flatten([lists:duplicate(?READINGS, N) ||
                                                   N <- lists:seq(?RUNTIME - ?DOUBLE_WINDOW, ?RUNTIME)])),
@@ -189,8 +189,8 @@ shrink_window() ->
                                                   N <- lists:seq(?RUNTIME - ?WINDOW, ?RUNTIME)])),
     NewValues = lists:sort(folsom_sample_slide:get_values(NewSlide)),
     ?assertEqual(NewExpectedValues, NewValues),
-    
-    
+
+
     %% trim the table
     Trimmed = folsom_sample_slide:trim(NewSlide#slide.reservoir, ?WINDOW),
     ?assertEqual((?RUNTIME - ?WINDOW - 1) * ?READINGS, Trimmed),
