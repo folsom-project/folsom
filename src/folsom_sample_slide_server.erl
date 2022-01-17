@@ -22,7 +22,7 @@
 %%% @author    Russell Brown <russelldb@basho.com>
 %%% @doc
 %%% Serialization point for folsom_sample_slide. Handles
-%%% pruning of older smaples. One started per histogram.
+%%% pruning of older samples. One started per histogram.
 %%% See folsom.hrl, folsom_sample_slide, folsom_sample_slide_sup
 %%% @end
 %%%-----------------------------------------------------------------

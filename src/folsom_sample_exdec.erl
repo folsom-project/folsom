@@ -88,7 +88,7 @@ update(#exdec{reservoir = Reservoir, alpha = Alpha, start = Start, n = N} = Samp
 update_on_priority(#exdec{reservoir = Reservoir} = Sample, First, Priority, Value) when First < Priority ->
     true = case ets:insert_new(Reservoir, {Priority, Value}) of
         true ->
-            % priority didnt already exist, so we created it and need to delete the first one
+            % priority didn't already exist, so we created it and need to delete the first one
             ets:delete(Reservoir, First);
         false ->
             % priority existed, we dont need to do anything
@@ -98,7 +98,7 @@ update_on_priority(#exdec{reservoir = Reservoir} = Sample, First, Priority, Valu
 update_on_priority(Sample, _, _, _) ->
     Sample.
 
-% gaurd against a possible bug, T should always be =< ?HOURSECS
+% guard against a possible bug, T should always be =< ?HOURSECS
 % also to prevent overflow issues make sure alpha is always =<
 % math:log(1.79769313486231570815e+308) / 3599 = 0.19721664709457737
 weight(Alpha, T) when T =< ?HOURSECS, Alpha =< 0.19721664709457737 ->
