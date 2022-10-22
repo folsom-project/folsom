@@ -204,8 +204,12 @@ get_socket_status(Socket) ->
     end.
 
 get_erlang_port_info(Port) ->
-    Info = erlang:port_info(Port),
-    [convert_port_info(Item) || Item <- Info].
+    case erlang:port_info(Port) of
+        undefined ->
+            [];
+        Info ->
+            [convert_port_info(Item) || Item <- Info]
+    end.
 
 get_socket_type(Socket) ->
     case catch prim_inet:gettype(Socket) of
