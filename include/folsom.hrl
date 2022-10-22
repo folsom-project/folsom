@@ -22,7 +22,7 @@
                                                   public]),
           server,
           update = update_counter :: update_counter |
-                                     update_counter_no_exception
+                                     update_counter_no_exceptions
          }).
 
 -record(slide, {
