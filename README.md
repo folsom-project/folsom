@@ -93,7 +93,7 @@ Be sure you understand _why_ before you do this.
 ###### `exdec`
 
 This is a  sample that exponentially decays less significant readings over time so as to give greater significance to newer readings. Read more here -
-[Forward Decay...](http://www.research.att.com/people/Cormode_Graham/library/publications/CormodeShkapenyukSrivastavaXu09.pdf).
+[Forward Decay...](https://www.dimacs.rutgers.edu/~graham/pubs/papers/fwddecay.pdf).
 Again you can change defaults at creation time, if you think you need to:
 
     > folsom_metrics:new_histogram(Name, exdec, Size::integer(), Alpha::float()).
