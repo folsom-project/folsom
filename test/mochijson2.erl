@@ -48,9 +48,6 @@ but will also allow additional cases for leniency:
                                  column=N+S#decoder.column}).
 -define(INC_COL(S), S#decoder{offset=1+S#decoder.offset,
                               column=1+S#decoder.column}).
--define(INC_LINE(S), S#decoder{offset=1+S#decoder.offset,
-                               column=1,
-                               line=1+S#decoder.line}).
 -define(INC_CHAR(S, C),
         case C of
             $\n ->
@@ -112,8 +109,11 @@ encode(json_term()) -> iolist()
 encode(Any) ->
     json_encode(Any, #encoder{}).
 
-%% @spec decoder([decoder_option()]) -> function()
-%% @doc Create a decoder/1 with the given options.
+-doc """
+Create a decoder/1 with the given options.
+### Spec
+decoder([decoder_option()]) -> function()
+""".
 decoder(Options) ->
     State = parse_decoder_options(Options, #decoder{}),
     fun (O) -> json_decode(O, State) end.
@@ -141,9 +141,9 @@ parse_decoder_options([{object_hook, Hook} | Rest], State) ->
     parse_decoder_options(Rest, State#decoder{object_hook=Hook}).
 
 json_encode(true, _State) ->
-    <<"true">>;
+    ~"true";
 json_encode(false, _State) ->
-    <<"false">>;
+    ~"false";
 json_encode(null, _State) ->
     <<"null">>;
 json_encode(I, _State) when is_integer(I) ->
@@ -619,7 +619,7 @@ equiv_object(Props1, Props2) ->
     L2 = lists:keysort(1, Props2),
     Pairs = lists:zip(L1, L2),
     true = lists:all(fun({{K1, V1}, {K2, V2}}) ->
-                             equiv(K1, K2) and equiv(V1, V2)
+                             equiv(K1, K2) andalso equiv(V1, V2)
                      end, Pairs).
 
 %% Recursively compare tuple elements for equivalence.

@@ -40,9 +40,7 @@ http://dimacs.rutgers.edu/~graham/pubs/papers/fwddecay.pdf
 -define(HOURSECS, 3600).
 
 -ifdef(use_rand).
--define(RANDOM, rand).
 -else.
--define(RANDOM, random).
 -endif.
 
 -include("folsom.hrl").

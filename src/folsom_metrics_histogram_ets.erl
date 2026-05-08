@@ -17,14 +17,13 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_metrics_histogram_ets.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% this module creates ets tables for histograms as to be the parent
-%%% process for those histograms so the apps using folsom dont have to
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_metrics_histogram_ets).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+this module creates ets tables for histograms as to be the parent
+process for those histograms so the apps using folsom dont have to
+""".
 
 -behaviour(gen_server).
 
@@ -98,16 +97,15 @@ handle_cast(Msg, State) -> {noreply, State} |
 handle_cast(_Msg, State) ->
     {noreply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling all non call/cast messages
-%%
-%% @spec handle_info(Info, State) -> {noreply, State} |
-%%                                   {noreply, State, Timeout} |
-%%                                   {stop, Reason, State}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Handling all non call/cast messages
+
+### Spec
+handle_info(Info, State) -> {noreply, State} |
+{noreply, State, Timeout} |
+{stop, Reason, State}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 handle_info(_Info, State) ->
     {noreply, State}.
 

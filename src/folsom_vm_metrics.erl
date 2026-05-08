@@ -270,7 +270,7 @@ convert_port_info(Item) ->
 
 convert_pid_info({current_function, MFA}) ->
     {current_function, tuple_to_list(MFA)};
-convert_pid_info({Key, Term}) when is_pid(Term) or is_port(Term) or is_function(Term) ->
+convert_pid_info({Key, Term}) when is_pid(Term) orelse is_port(Term) orelse is_function(Term) ->
     {Key, pid_port_fun_to_binary(Term)};
 convert_pid_info({links, List}) ->
     {links, [pid_port_fun_to_binary(Item) || Item <- List]};

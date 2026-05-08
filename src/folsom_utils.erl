@@ -18,6 +18,7 @@
 %%%-------------------------------------------------------------------
 %%% File:      folsom_utils.erl
 -module(folsom_utils).
+-ignore_xref([{random, seed, 1}]).
 -author("   joe williams <j@boundary.com>").
 -moduledoc """
 various util functions

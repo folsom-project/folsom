@@ -61,7 +61,7 @@ configure_test_() ->
      [{"start with configured metrics",
        fun() ->
                ?assertMatch(ok, application:start(folsom)),
-               [counter, slide, <<"gauge">>, <<"uniform">>] =
+               [counter, slide, ~"gauge", ~"uniform"] =
                    lists:sort(folsom_metrics:get_metrics())
        end}]}.
 

@@ -23,9 +23,7 @@ Sliding window sample. Last Window seconds readings are recorded.
 """.
 
 -ifdef(use_rand).
--define(RANDOM, rand).
 -else.
--define(RANDOM, random).
 -endif.
 
 -export([

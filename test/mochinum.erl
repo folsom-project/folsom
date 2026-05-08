@@ -20,10 +20,13 @@ Design and Implementation.
 
 %% External API
 
-%% @spec digits(number()) -> string()
-%% @doc  Returns a string that accurately represents the given integer or float
-%%       using a conservative amount of digits. Great for generating
-%%       human-readable output, or compact ASCII serializations for floats.
+-doc """
+ Returns a string that accurately represents the given integer or float
+using a conservative amount of digits. Great for generating
+human-readable output, or compact ASCII serializations for floats.
+### Spec
+digits(number()) -> string()
+""".
 digits(N) when is_integer(N) ->
     integer_to_list(N);
 digits(F) when F == 0.0 ->

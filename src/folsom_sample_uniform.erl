@@ -32,9 +32,7 @@ http://www.cs.umd.edu/~samir/498/vitter.pdf
 """.
 
 -ifdef(use_rand).
--define(RANDOM, rand).
 -else.
--define(RANDOM, random).
 -endif.
 
 -export([
