@@ -24,8 +24,6 @@ various util functions
 """.
 
 -export([
-         to_atom/1,
-         convert_tags/1,
          now_epoch/0,
          now_epoch/1,
          now_epoch_micro/0,
@@ -35,14 +33,6 @@ various util functions
          update_counter_no_exceptions/3,
          rand_uniform/1
         ]).
-
-to_atom(Binary) when is_binary(Binary) ->
-    list_to_atom(binary_to_list(Binary));
-to_atom(List) when is_list(List) ->
-    list_to_atom(List).
-
-convert_tags(Tags) ->
-    [to_atom(Tag) || Tag <- Tags].
 
 now_epoch() ->
     now_epoch(os:timestamp()).
