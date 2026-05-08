@@ -61,11 +61,14 @@ int_pow(_X, 0) ->
 int_pow(X, N) when N > 0 ->
     int_pow(X, N, 1).
 
-%% @spec int_ceil(F::float()) -> integer()
-%% @doc  Return the ceiling of F as an integer. The ceiling is defined as
-%%       F when F == trunc(F);
-%%       trunc(F) when F &lt; 0;
-%%       trunc(F) + 1 when F &gt; 0.
+-doc """
+ Return the ceiling of F as an integer. The ceiling is defined as
+F when F == trunc(F);
+trunc(F) when F < 0;
+trunc(F) + 1 when F > 0.
+### Spec
+int_ceil(F::float()) -> integer()
+""".
 int_ceil(X) ->
     T = trunc(X),
     case (X - T) of

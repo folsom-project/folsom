@@ -64,15 +64,32 @@ but will also allow additional cases for leniency:
 -define(IS_WHITESPACE(C),
         (C =:= $\s orelse C =:= $\t orelse C =:= $\r orelse C =:= $\n)).
 
-%% @type iolist() = [char() | binary() | iolist()]
-%% @type iodata() = iolist() | binary()
-%% @type json_string() = atom | binary()
-%% @type json_number() = integer() | float()
-%% @type json_array() = [json_term()]
-%% @type json_object() = {struct, [{json_string(), json_term()}]}
-%% @type json_iolist() = {json, iolist()}
-%% @type json_term() = json_string() | json_number() | json_array() |
-%%                     json_object() | json_iolist()
+-doc """
+Create an encoder/1 with the given options.
+### Type
+iolist() = [char() | binary() | iolist()]
+### Type
+iodata() = iolist() | binary()
+### Type
+json_string() = atom | binary()
+### Type
+json_number() = integer() | float()
+### Type
+json_array() = [json_term()]
+### Type
+json_object() = {struct, [{json_string(), json_term()}]}
+### Type
+json_iolist() = {json, iolist()}
+### Type
+json_term() = json_string() | json_number() | json_array() |
+json_object() | json_iolist()
+### Spec
+encoder([encoder_option()]) -> function()
+### Type
+encoder_option() = handler_option() | utf8_option()
+### Type
+utf8_option() = boolean(). Emit unicode as utf8 (default - false)
+""".
 
 -record(encoder, {handler=null,
                   utf8=false}).
@@ -83,10 +100,6 @@ but will also allow additional cases for leniency:
                   column=1,
                   state=null}).
 
-%% @spec encoder([encoder_option()]) -> function()
-%% @doc Create an encoder/1 with the given options.
-%% @type encoder_option() = handler_option() | utf8_option()
-%% @type utf8_option() = boolean(). Emit unicode as utf8 (default - false)
 encoder(Options) ->
     State = parse_encoder_options(Options, #encoder{}),
     fun (O) -> json_encode(O, State) end.

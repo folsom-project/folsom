@@ -43,13 +43,12 @@
 %%% API
 %%%===================================================================
 
-%%--------------------------------------------------------------------
-%% @doc
-%% Starts the server
-%%
-%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Starts the server
+
+### Spec
+start_link() -> {ok, Pid} | ignore | {error, Error}
+""".
 start_link() ->
     gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
