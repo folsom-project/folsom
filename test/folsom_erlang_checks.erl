@@ -402,7 +402,7 @@ counter_metric(Count, Counter) ->
 
 ensure_meter_tick_exists(MeterCnt) ->
     {state, State} = folsom_meter_timer_server:dump(),
-    MeterCnt = length(State),
+    ?assertEqual(MeterCnt, length(State)),
     ok.
 
 %% internal function

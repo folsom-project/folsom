@@ -112,28 +112,26 @@ handle_cast(_Msg, State) ->
 handle_info(_Info, State) ->
     {noreply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% This function is called by a gen_server when it is about to
-%% terminate. It should be the opposite of Module:init/1 and do any
-%% necessary cleaning up. When it returns, the gen_server terminates
-%% with Reason. The return value is ignored.
-%%
-%% @spec terminate(Reason, State) -> void()
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+This function is called by a gen_server when it is about to
+terminate. It should be the opposite of Module:init/1 and do any
+necessary cleaning up. When it returns, the gen_server terminates
+with Reason. The return value is ignored.
+
+### Spec
+terminate(Reason, State) -> void()
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 terminate(_Reason, _State) ->
     ok.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Convert process state when code is changed
-%%
-%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Convert process state when code is changed
+
+### Spec
+code_change(OldVsn, State, Extra) -> {ok, NewState}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 

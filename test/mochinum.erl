@@ -1,16 +1,16 @@
-%% @copyright 2007 Mochi Media, Inc.
-%% @author Bob Ippolito <bob@mochimedia.com>
-
-%% @doc Useful numeric algorithms for floats that cover some deficiencies
-%% in the math module. More interesting is digits/1, which implements
-%% the algorithm from:
-%% http://www.cs.indiana.edu/~burger/fp/index.html
-%% See also "Printing Floating-Point Numbers Quickly and Accurately"
-%% in Proceedings of the SIGPLAN '96 Conference on Programming Language
-%% Design and Implementation.
+%% Copyright 2007 Mochi Media, Inc.
 
 -module(mochinum).
 -author("Bob Ippolito <bob@mochimedia.com>").
+-moduledoc """
+Useful numeric algorithms for floats that cover some deficiencies
+in the math module. More interesting is digits/1, which implements
+the algorithm from:
+http://www.cs.indiana.edu/~burger/fp/index.html
+See also "Printing Floating-Point Numbers Quickly and Accurately"
+in Proceedings of the SIGPLAN '96 Conference on Programming Language
+Design and Implementation.
+""".
 -export([digits/1, frexp/1, int_pow/2, int_ceil/1]).
 
 %% IEEE 754 Float exponent bias
@@ -50,9 +50,12 @@ frexp(F::float()) -> {Frac::float(), Exp::float()}
 frexp(F) ->
     frexp1(unpack(F)).
 
-%% @spec int_pow(X::integer(), N::integer()) -> Y::integer()
-%% @doc  Moderately efficient way to exponentiate integers.
-%%       int_pow(10, 2) = 100.
+-doc """
+ Moderately efficient way to exponentiate integers.
+int_pow(10, 2) = 100.
+### Spec
+int_pow(X::integer(), N::integer()) -> Y::integer()
+""".
 int_pow(_X, 0) ->
     1;
 int_pow(X, N) when N > 0 ->

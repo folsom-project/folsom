@@ -120,16 +120,15 @@ handle_call(dump, _From, State) ->
 handle_cast(_Msg, State) ->
     {noreply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling all non call/cast messages
-%%
-%% @spec handle_info(Info, State) -> {noreply, State} |
-%%                                   {noreply, State, Timeout} |
-%%                                   {stop, Reason, State}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Handling all non call/cast messages
+
+### Spec
+handle_info(Info, State) -> {noreply, State} |
+{noreply, State, Timeout} |
+{stop, Reason, State}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 handle_info(_Info, State) ->
     {noreply, State}.
 
@@ -147,14 +146,13 @@ handle_info(_Info, State) ->
 terminate(_Reason, _State) ->
     ok.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Convert process state when code is changed
-%%
-%% @spec code_change(OldVsn, State, Extra) -> {ok, NewState}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Convert process state when code is changed
+
+### Spec
+code_change(OldVsn, State, Extra) -> {ok, NewState}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 code_change(_OldVsn, State, _Extra) ->
     {ok, State}.
 
