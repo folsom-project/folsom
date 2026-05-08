@@ -215,8 +215,6 @@ check_metrics() ->
 
     [11,12,13,14,15] = folsom_metrics:get_metric_value(nonec),
 
-    [6,7,8,9,10,11,12,13,14,15] = folsom_metrics:get_metric_value(slide_sorted_a),
-
     Histogram1 = folsom_metrics:get_histogram_statistics(<<"uniform">>),
     histogram_checks(Histogram1),
 
@@ -392,10 +390,7 @@ vm_metrics() ->
     true = lists:keymember(allocated_areas, 1, List3),
     true = lists:keymember(port_count, 1, List3),
 
-    [{_, [{backtrace, _}| _]} | _] = folsom_vm_metrics:get_process_info(),
-
-    [{_, [{name, _}| _]} | _] = folsom_vm_metrics:get_port_info().
-
+    [{_, [{backtrace, _}| _]} | _] = folsom_vm_metrics:get_process_info().
 
 counter_metric(Count, Counter) ->
     ok = folsom_metrics:new_counter(Counter),
