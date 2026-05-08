@@ -18,7 +18,6 @@
 %%%-------------------------------------------------------------------
 %%% File:      folsom_utils.erl
 -module(folsom_utils).
--ignore_xref([{random, seed, 1}]).
 -author("   joe williams <j@boundary.com>").
 -moduledoc """
 various util functions
@@ -120,23 +119,5 @@ update_counter_no_exceptions(Tid, Key, Value) when is_integer(Value) ->
 
 -endif.
 
-
--ifdef(use_rand).
-
 rand_uniform(N) ->
     rand:uniform(N).
-
--else.
-
-rand_uniform(N) ->
-    %% ensure seed is initialized
-    %% simluating new `rand' module's behaviour
-    case get(random_seed) of
-        undefined ->
-            random:seed(os:timestamp());
-        {_, _, _} ->
-            ok
-    end,
-    random:uniform(N).
-
--endif.
