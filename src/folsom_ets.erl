@@ -16,12 +16,9 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_ets.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_ets).
+-author("   joe williams <j@boundary.com>").
 
 %% API
 -export([

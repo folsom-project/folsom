@@ -17,13 +17,12 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_meter_timer_server.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% gen_server for registering meter ticks
-%%% @end
-%%%-----------------------------------------------------------------
 
 -module(folsom_meter_timer_server).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+gen_server for registering meter ticks
+""".
 
 -behaviour(gen_server).
 
@@ -46,13 +45,12 @@
 %%% API
 %%%===================================================================
 
-%%--------------------------------------------------------------------
-%% @doc
-%% Starts the server
-%%
-%% @spec start_link() -> {ok, Pid} | ignore | {error, Error}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Starts the server
+
+### Spec
+start_link() -> {ok, Pid} | ignore | {error, Error}
+""".
 start_link() ->
     gen_server:start_link({local, ?SERVER}, ?MODULE, [], []).
 
@@ -74,20 +72,19 @@ start_link() ->
 init([]) ->
     {ok, #state{}}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling call messages
-%%
-%% @spec handle_call(Request, From, State) ->
-%%                                   {reply, Reply, State} |
-%%                                   {reply, Reply, State, Timeout} |
-%%                                   {noreply, State} |
-%%                                   {noreply, State, Timeout} |
-%%                                   {stop, Reason, Reply, State} |
-%%                                   {stop, Reason, State}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Handling call messages
+
+### Spec
+handle_call(Request, From, State) ->
+{reply, Reply, State} |
+{reply, Reply, State, Timeout} |
+{noreply, State} |
+{noreply, State, Timeout} |
+{stop, Reason, Reply, State} |
+{stop, Reason, State}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 handle_call({register, Name, Module}, _From, State) ->
     NewState = case proplists:is_defined(Name, State#state.registered_timers) of
                    true ->

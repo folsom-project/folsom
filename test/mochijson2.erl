@@ -102,8 +102,11 @@ decoder(Options) ->
     State = parse_decoder_options(Options, #decoder{}),
     fun (O) -> json_decode(O, State) end.
 
-%% @spec decode(iolist()) -> json_term()
-%% @doc Decode the given iolist to Erlang terms.
+-doc """
+Decode the given iolist to Erlang terms.
+### Spec
+decode(iolist()) -> json_term()
+""".
 decode(S) ->
     json_decode(S, #decoder{}).
 

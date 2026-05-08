@@ -40,10 +40,13 @@ digits(Float) ->
             R
     end.
 
-%% @spec frexp(F::float()) -> {Frac::float(), Exp::float()}
-%% @doc  Return the fractional and exponent part of an IEEE 754 double,
-%%       equivalent to the libc function of the same name.
-%%       F = Frac * pow(2, Exp).
+-doc """
+ Return the fractional and exponent part of an IEEE 754 double,
+equivalent to the libc function of the same name.
+F = Frac * pow(2, Exp).
+### Spec
+frexp(F::float()) -> {Frac::float(), Exp::float()}
+""".
 frexp(F) ->
     frexp1(unpack(F)).
 

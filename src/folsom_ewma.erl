@@ -17,17 +17,16 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_ewma.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% based on https://github.com/codahale/metrics/blob/development/src/main/java/com/yammer/metrics/stats/EWMA.java
-%%% references:
-%%% http://www.teamquest.com/pdfs/whitepaper/ldavg1.pdf
-%%% http://www.teamquest.com/pdfs/whitepaper/ldavg2.pdf
-%%% @end
-%%%-----------------------------------------------------------------
 
 
 -module(folsom_ewma).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+based on https://github.com/codahale/metrics/blob/development/src/main/java/com/yammer/metrics/stats/EWMA.java
+references:
+http://www.teamquest.com/pdfs/whitepaper/ldavg1.pdf
+http://www.teamquest.com/pdfs/whitepaper/ldavg2.pdf
+""".
 
 -define(INSTANT_ALPHA, 1).
 -define(M1_ALPHA,   1 - math:exp(-5 / 60.0)).

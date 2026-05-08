@@ -20,16 +20,16 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_metrics_duration.erl
-%%% @author    Russell Brown <russelldb@basho.com>
-%%% @doc       Tracks the time something takes. If
-%%%            you can, use folsom_metrics:histogram_timed_update/2,3,4.
-%%%            This is for the case when you can't wrap your timed action
-%%%            in a fun. Calling timer_start / timer_end in the correct
-%%%            order is the calling code's responsibility.
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_metrics_duration).
+-author("   Russell Brown <russelldb@basho.com>").
+-moduledoc """
+      Tracks the time something takes. If
+you can, use folsom_metrics:histogram_timed_update/2,3,4.
+This is for the case when you can't wrap your timed action
+in a fun. Calling timer_start / timer_end in the correct
+order is the calling code's responsibility.
+""".
 
 -behaviour(gen_server).
 

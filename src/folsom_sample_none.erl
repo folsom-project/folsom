@@ -17,13 +17,12 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_none.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% no sampling, just a capped circular buffer
-%%% @end
-%%%-----------------------------------------------------------------
 
 -module(folsom_sample_none).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+no sampling, just a capped circular buffer
+""".
 
 -export([
          new/1,

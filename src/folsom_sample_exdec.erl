@@ -17,20 +17,19 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_exdec.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% erlang implementation of a exponentially-decaying random sample
-%%% based on a java implementation by coda hale, which can be found at:
-%%%
-%%% https://github.com/codahale/metrics/blob/development/src/main/java/com/yammer/metrics/core/ExponentiallyDecayingSample.java
-%%%
-%%% that implementation is based on:
-%%%
-%%% http://dimacs.rutgers.edu/~graham/pubs/papers/fwddecay.pdf
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_sample_exdec).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+erlang implementation of a exponentially-decaying random sample
+based on a java implementation by coda hale, which can be found at:
+
+https://github.com/codahale/metrics/blob/development/src/main/java/com/yammer/metrics/core/ExponentiallyDecayingSample.java
+
+that implementation is based on:
+
+http://dimacs.rutgers.edu/~graham/pubs/papers/fwddecay.pdf
+""".
 
 -export([
          new/2,

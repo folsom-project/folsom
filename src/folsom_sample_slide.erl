@@ -15,13 +15,12 @@
 %%%
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_slide.erl
-%%% @author    Russell Brown <russelldb@basho.com>
-%%% @doc
-%%% Sliding window sample. Last Window seconds readings are recorded.
-%%% @end
-%%%-----------------------------------------------------------------
 
 -module(folsom_sample_slide).
+-author("   Russell Brown <russelldb@basho.com>").
+-moduledoc """
+Sliding window sample. Last Window seconds readings are recorded.
+""".
 
 -export([
          new/1,

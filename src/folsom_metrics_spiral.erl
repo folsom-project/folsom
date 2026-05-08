@@ -17,13 +17,13 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_metrics_spiral.erl
-%%% @author    Russell Brown <russelldb@basho.com>
-%%% @doc A total count, and sliding window count of events over the last
-%%%      minute.
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_metrics_spiral).
+-author("   Russell Brown <russelldb@basho.com>").
+-moduledoc """
+A total count, and sliding window count of events over the last
+minute.
+""".
 
 -behaviour(gen_server).
 

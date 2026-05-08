@@ -19,12 +19,11 @@
 %% -------------------------------------------------------------------
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_slide_sup.erl
-%%% @author    Russell Brown <russelldb@basho.com>
-%%% @doc
-%%% Starts simple_one_for_one children per slide sample
-%%% @end
-%%%-----------------------------------------------------------------
 -module(folsom_sample_slide_sup).
+-author("   Russell Brown <russelldb@basho.com>").
+-moduledoc """
+Starts simple_one_for_one children per slide sample
+""".
 -behaviour(supervisor).
 
 %% beahvior functions
@@ -42,7 +41,7 @@ start_slide_server(SampleMod, Reservoir, Window) ->
     {ok, Pid} = supervisor:start_child(?MODULE, [SampleMod, Reservoir, Window]),
     Pid.
 
-%% @private
+-doc hidden.
 init ([]) ->
     {ok,{{simple_one_for_one, 3, 180},
          [

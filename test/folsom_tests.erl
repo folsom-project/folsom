@@ -17,12 +17,9 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_tests.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_tests).
+-author("   joe williams <j@boundary.com>").
 
 -include_lib("eunit/include/eunit.hrl").
 

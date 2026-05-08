@@ -16,14 +16,14 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      slide_statem_eqc.erl
-%%% @author    Russell Brown <russelldb@basho.com>
-%%% @doc       quickcheck test for the folsom_sample_slide.erl
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(slide_statem_eqc).
 
 -compile([export_all, nowarn_export_all]).
+-author("   Russell Brown <russelldb@basho.com>").
+-moduledoc """
+      quickcheck test for the folsom_sample_slide.erl
+""".
 
 -ifdef(TEST).
 -ifdef(EQC).

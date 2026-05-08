@@ -57,48 +57,45 @@ start_link() ->
 %%% gen_server callbacks
 %%%===================================================================
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Initializes the server
-%%
-%% @spec init(Args) -> {ok, State} |
-%%                     {ok, State, Timeout} |
-%%                     ignore |
-%%                     {stop, Reason}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Initializes the server
+
+### Spec
+init(Args) -> {ok, State} |
+{ok, State, Timeout} |
+ignore |
+{stop, Reason}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 init([]) ->
     {ok, #state{}}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling call messages
-%%
-%% @spec handle_call(Request, From, State) ->
-%%                                   {reply, Reply, State} |
-%%                                   {reply, Reply, State, Timeout} |
-%%                                   {noreply, State} |
-%%                                   {noreply, State, Timeout} |
-%%                                   {stop, Reason, Reply, State} |
-%%                                   {stop, Reason, State}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Handling call messages
+
+### Spec
+handle_call(Request, From, State) ->
+{reply, Reply, State} |
+{reply, Reply, State, Timeout} |
+{noreply, State} |
+{noreply, State, Timeout} |
+{stop, Reason, Reply, State} |
+{stop, Reason, State}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 handle_call({new, {Table, Opts}}, _From, State) ->
     Reply = ets:new(Table, Opts),
     {reply, Reply, State}.
 
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handling cast messages
-%%
-%% @spec handle_cast(Msg, State) -> {noreply, State} |
-%%                                  {noreply, State, Timeout} |
-%%                                  {stop, Reason, State}
-%% @end
-%%--------------------------------------------------------------------
+-doc """
+Handling cast messages
+
+### Spec
+handle_cast(Msg, State) -> {noreply, State} |
+{noreply, State, Timeout} |
+{stop, Reason, State}
+""".
+%% -doc hidden. https://github.com/erlang/otp/issues/9672
 handle_cast(_Msg, State) ->
     {noreply, State}.
 

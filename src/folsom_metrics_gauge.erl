@@ -17,12 +17,9 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_metrics_gauge.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% @end
-%%%-----------------------------------------------------------------
 
 -module(folsom_metrics_gauge).
+-author("   joe williams <j@boundary.com>").
 
 -behaviour(gen_server).
 

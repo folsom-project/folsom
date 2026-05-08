@@ -17,12 +17,9 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_metrics.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_metrics).
+-author("   joe williams <j@boundary.com>").
 
 -export([
          new_counter/1,

@@ -17,12 +17,11 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_utils.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% various util functions
-%%% @end
-%%%------------------------------------------------------------------
 -module(folsom_utils).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+various util functions
+""".
 
 -export([
          to_atom/1,
@@ -74,9 +73,10 @@ update_counter_no_exceptions(Tid, Key, Value) ->
 
 -else.
 
-%% @doc
-%% Same as {@link ets:update_counter/3} but inserts `{Key, Value}' if object
-%% is missing in the table.
+-doc """
+Same as `ets:update_counter/3` but inserts `{Key, Value}` if object
+is missing in the table.
+""".
 update_counter(Tid, Key, Value) when is_integer(Value) ->
     %% try to update the counter, will badarg if it doesn't exist
     try ets:update_counter(Tid, Key, Value) of
@@ -95,10 +95,11 @@ update_counter(Tid, Key, Value) when is_integer(Value) ->
             end
     end.
 
-%% @doc
-%% Same as {@link ets:update_counter/3} but inserts `{Key, Value}' if object
-%% is missing in the table, avoiding exceptions by reading first.
-%% Won't be required after https://github.com/erlang/otp/pull/362
+-doc """
+Same as `ets:update_counter/3` but inserts `{Key, Value}` if object
+is missing in the table, avoiding exceptions by reading first.
+Won't be required after https://github.com/erlang/otp/pull/362
+""".
 update_counter_no_exceptions(Tid, Key, Value) when is_integer(Value) ->
     %% Read counter first to avoid an exception
     case ets:lookup(Tid, Key) of

@@ -16,12 +16,12 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_slide.erl
-%%% @author    Russell Brown <russelldb@basho.com>
-%%% @doc       eunit test for folsom_sample_slide.erl
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_sample_slide_test).
+-author("   Russell Brown <russelldb@basho.com>").
+-moduledoc """
+      eunit test for folsom_sample_slide.erl
+""".
 
 -include_lib("eunit/include/eunit.hrl").
 -include("folsom.hrl").

@@ -17,13 +17,12 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_vm_metrics.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% convert erlang system metrics to proplists
-%%% @end
-%%%-----------------------------------------------------------------
 
 -module(folsom_vm_metrics).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+convert erlang system metrics to proplists
+""".
 
 -export([get_system_info/0,
          get_statistics/0,

@@ -17,13 +17,12 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_slide_sorted.erl
-%%% @author    Ramon Lastres <ramon.lastres@erlang-solutions.com>
-%%% @doc
-%%% simple sliding window histogram.
-%%% @end
-%%%-----------------------------------------------------------------
 
 -module(folsom_sample_slide_sorted).
+-author("   Ramon Lastres <ramon.lastres@erlang-solutions.com>").
+-moduledoc """
+simple sliding window histogram.
+""".
 
 -export([
          new/1,

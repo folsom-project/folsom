@@ -17,20 +17,19 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_uniform.erl
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% erlang implementation of a uniform random sample
-%%% based on a java implementation by coda hale, which can be found at:
-%%%
-%%% https://github.com/codahale/metrics/blob/development/src/main/java/com/yammer/metrics/core/UniformSample.java
-%%%
-%%% that implementation is based on algorithm R in:
-%%%
-%%% http://www.cs.umd.edu/~samir/498/vitter.pdf
-%%% @end
-%%%-----------------------------------------------------------------
 
 -module(folsom_sample_uniform).
+-author("   joe williams <j@boundary.com>").
+-moduledoc """
+erlang implementation of a uniform random sample
+based on a java implementation by coda hale, which can be found at:
+
+https://github.com/codahale/metrics/blob/development/src/main/java/com/yammer/metrics/core/UniformSample.java
+
+that implementation is based on algorithm R in:
+
+http://www.cs.umd.edu/~samir/498/vitter.pdf
+""".
 
 -ifdef(use_rand).
 -define(RANDOM, rand).

@@ -18,13 +18,10 @@
 
 %%%-------------------------------------------------------------------
 %%% File:      folsom_metrics_meter_reader.erl
-%%% @author    Seth Falcon <seth@opscode.com>
-%%% @author    joe williams <j@boundary.com>
-%%% @doc
-%%% @end
-%%%------------------------------------------------------------------
 
 -module(folsom_metrics_meter_reader).
+-author("   Seth Falcon <seth@opscode.com>").
+-author("   joe williams <j@boundary.com>").
 
 -behaviour(gen_server).
 

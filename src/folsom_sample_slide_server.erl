@@ -19,14 +19,13 @@
 %% -------------------------------------------------------------------
 %%%-------------------------------------------------------------------
 %%% File:      folsom_sample_slide_server.erl
-%%% @author    Russell Brown <russelldb@basho.com>
-%%% @doc
-%%% Serialization point for folsom_sample_slide. Handles
-%%% pruning of older samples. One started per histogram.
-%%% See folsom.hrl, folsom_sample_slide, folsom_sample_slide_sup
-%%% @end
-%%%-----------------------------------------------------------------
 -module(folsom_sample_slide_server).
+-author("   Russell Brown <russelldb@basho.com>").
+-moduledoc """
+Serialization point for folsom_sample_slide. Handles
+pruning of older samples. One started per histogram.
+See folsom.hrl, folsom_sample_slide, folsom_sample_slide_sup
+""".
 
 -behaviour(gen_server).
 
