@@ -68,15 +68,15 @@ configure_test_() ->
 setup_app() ->
     application:unload(folsom),
     Env = [{counter, counter},
-           {gauge, <<"gauge">>},
-           {histogram, [[<<"uniform">>, uniform, 5000],
+           {gauge, ~"gauge"},
+           {histogram, [[~"uniform", uniform, 5000],
                         [slide, slide_uniform, {60, 1028}]]}],
     application:load({application, folsom, [{mod, {folsom, []}}, {env, Env}]}),
     ok.
 
 cleanup_app(ok) ->
     lists:foreach(fun folsom_metrics:delete_metric/1,
-                  [counter, slide, <<"gauge">>, <<"uniform">>]),
+                  [counter, slide, ~"gauge", ~"uniform"]),
     application:stop(folsom),
     application:unload(folsom),
     ok.

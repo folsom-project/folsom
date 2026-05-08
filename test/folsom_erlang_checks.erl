@@ -52,7 +52,7 @@ create_metrics() ->
     ok = folsom_metrics:new_gauge(~"gauge"),
 
     ok = folsom_metrics:new_histogram(~"uniform", uniform, 5000),
-    ok = folsom_metrics:new_histogram(<<"hugedata">>, uniform, 5000),
+    ok = folsom_metrics:new_histogram(~"hugedata", uniform, 5000),
     ok = folsom_metrics:new_histogram(exdec, exdec),
     ok = folsom_metrics:new_histogram(none, none, 5000),
 
@@ -66,7 +66,7 @@ create_metrics() ->
     ok = folsom_metrics:new_histogram(timed, none, 5000),
     ok = folsom_metrics:new_histogram(timed2, none, 5000),
 
-    ok = folsom_metrics:new_history(<<"history">>),
+    ok = folsom_metrics:new_history(~"history"),
     ok = folsom_metrics:new_meter(meter),
 
     ok = folsom_metrics:new_meter_reader(meter_reader),
@@ -99,11 +99,11 @@ tag_metrics() ->
     Group = "mygroup",
     ok = folsom_metrics:tag_metric(counter, Group),
     ok = folsom_metrics:tag_metric(counter2, Group),
-    ok = folsom_metrics:tag_metric(<<"gauge">>, Group),
+    ok = folsom_metrics:tag_metric(~"gauge", Group),
     ok = folsom_metrics:tag_metric(meter, Group),
     ok = folsom_metrics:tag_metric(spiral, Group),
     ok = folsom_metrics:tag_metric(spiral_no_exceptions, Group),
-    ?debugFmt("~n~ntagged metrics: ~p, ~p, ~p, ~p, ~p and ~p in group ~p~n", [counter,counter2,<<"gauge">>,meter,spiral,spiral_no_exceptions,Group]).
+    ?debugFmt("~n~ntagged metrics: ~p, ~p, ~p, ~p, ~p and ~p in group ~p~n", [counter,counter2,~"gauge",meter,spiral,spiral_no_exceptions,Group]).
 
 populate_metrics() ->
     ok = folsom_metrics:notify({counter, {inc, 1}}),
@@ -122,11 +122,11 @@ populate_metrics() ->
     UnknownHistogramBegin = folsom_metrics:histogram_timed_begin(unknown_histogram),
     {error, unknown_histogram, nonexistent_metric} = folsom_metrics:safely_histogram_timed_notify(UnknownHistogramBegin),
 
-    ok = folsom_metrics:notify({<<"gauge">>, 2}),
+    ok = folsom_metrics:notify({~"gauge", 2}),
 
-    [ok = folsom_metrics:notify({<<"uniform">>, Value}) || Value <- ?DATA],
+    [ok = folsom_metrics:notify({~"uniform", Value}) || Value <- ?DATA],
 
-    [ok = folsom_metrics:notify({<<"hugedata">>, Value}) || Value <- ?HUGEDATA],
+    [ok = folsom_metrics:notify({~"hugedata", Value}) || Value <- ?HUGEDATA],
 
     [ok = folsom_metrics:notify({exdec, Value}) || Value <- lists:seq(1, 50000)],
 
@@ -165,10 +165,10 @@ populate_metrics() ->
 
     [PopulateDuration() || _ <- lists:seq(1, 10)],
 
-    ok = folsom_metrics:notify({<<"history">>, "string"}),
+    ok = folsom_metrics:notify({~"history", "string"}),
 
     {error, _, nonexistent_metric} = folsom_metrics:notify({historya, "5"}),
-    ok = folsom_metrics:notify(historya, <<"binary">>, history),
+    ok = folsom_metrics:notify(historya, ~"binary", history),
 
     ?debugFmt("testing meter ...", []),
 
@@ -204,7 +204,7 @@ check_metrics() ->
 
     0 = folsom_metrics:get_metric_value(counter2),
 
-    2 = folsom_metrics:get_metric_value(<<"gauge">>),
+    2 = folsom_metrics:get_metric_value(~"gauge"),
 
     true = sets:is_subset(sets:from_list([a,b,c]), folsom_metrics:get_tags(tagged_metric)),
 
@@ -212,17 +212,17 @@ check_metrics() ->
 
     [11,12,13,14,15] = folsom_metrics:get_metric_value(nonec),
 
-    Histogram1 = folsom_metrics:get_histogram_statistics(<<"uniform">>),
+    Histogram1 = folsom_metrics:get_histogram_statistics(~"uniform"),
     histogram_checks(Histogram1),
 
     MetricsSubset = [min, max],
 
     ok = set_enabled_metrics(MetricsSubset),
-    Histogram2 = folsom_metrics:get_histogram_statistics(<<"uniform">>),
+    Histogram2 = folsom_metrics:get_histogram_statistics(~"uniform"),
     subset_checks(Histogram2, MetricsSubset),
     ok = set_enabled_metrics(?DEFAULT_METRICS),
 
-    HugeHistogram = folsom_metrics:get_histogram_statistics(<<"hugedata">>),
+    HugeHistogram = folsom_metrics:get_histogram_statistics(~"hugedata"),
     huge_histogram_checks(HugeHistogram),
 
     % just check exdec for non-zero values
@@ -249,7 +249,7 @@ check_metrics() ->
     List2 = folsom_metrics:get_metric_value(timed2),
     ?debugFmt("timed update value begin/end: ~p", [List2]),
 
-    1 = length(folsom_metrics:get_metric_value(<<"history">>)),
+    1 = length(folsom_metrics:get_metric_value(~"history")),
     1 = length(folsom_metrics:get_metric_value(historya)),
 
     ?debugFmt("checking meter~n", []),
@@ -298,7 +298,7 @@ check_group_metrics() ->
     6 = length(Metrics),
     {counter, 0} = lists:keyfind(counter,1,Metrics),
     {counter2, 0} = lists:keyfind(counter2,1,Metrics),
-    {<<"gauge">>, 2} = lists:keyfind(<<"gauge">>,1,Metrics),
+    {~"gauge", 2} = lists:keyfind(~"gauge",1,Metrics),
 
     {meter, Meter} = lists:keyfind(meter,1,Metrics),
     ok = case proplists:get_value(one, Meter) of
@@ -322,11 +322,11 @@ check_group_metrics() ->
     {counter2, 0} = lists:keyfind(counter2,1,Counters),
 
     ok = folsom_metrics:untag_metric(counter2, Group),
-    ok = folsom_metrics:untag_metric(<<"gauge">>, Group),
+    ok = folsom_metrics:untag_metric(~"gauge", Group),
     ok = folsom_metrics:untag_metric(meter, Group),
     ok = folsom_metrics:untag_metric(spiral, Group),
     ok = folsom_metrics:untag_metric(spiral_no_exceptions, Group),
-    ?debugFmt("~n~nuntagged metrics: ~p, ~p, ~p, ~p and ~p in group ~p~n", [counter2,<<"gauge">>,meter,spiral,spiral_no_exceptions,Group]),
+    ?debugFmt("~n~nuntagged metrics: ~p, ~p, ~p, ~p and ~p in group ~p~n", [counter2,~"gauge",meter,spiral,spiral_no_exceptions,Group]),
     RemainingMetrics = folsom_metrics:get_metrics_value(Group),
     1 = length(RemainingMetrics),
     {counter, 0} = lists:keyfind(counter,1,Metrics).
@@ -336,14 +336,14 @@ delete_metrics() ->
 
     ok = folsom_metrics:delete_metric(counter),
     ok = folsom_metrics:delete_metric(counter2),
-    ok = folsom_metrics:delete_metric(<<"gauge">>),
+    ok = folsom_metrics:delete_metric(~"gauge"),
 
-    ok = folsom_metrics:delete_metric(<<"hugedata">>),
-    ok = folsom_metrics:delete_metric(<<"uniform">>),
+    ok = folsom_metrics:delete_metric(~"hugedata"),
+    ok = folsom_metrics:delete_metric(~"uniform"),
     ok = folsom_metrics:delete_metric(exdec),
     ok = folsom_metrics:delete_metric(none),
 
-    ok = folsom_metrics:delete_metric(<<"history">>),
+    ok = folsom_metrics:delete_metric(~"history"),
     ok = folsom_metrics:delete_metric(historya),
 
     ok = folsom_metrics:delete_metric(nonea),
@@ -502,9 +502,9 @@ c_compiler_used() ->
             {gnuc, {4,4}},
             {msc, 1600}],
 
-    Expected = [[{compiler, gnuc}, {version, <<"4.4.5">>}],
-                [{compiler, gnuc}, {version, <<"4.4">>}],
-                [{compiler, msc}, {version, <<"1600">>}]],
+    Expected = [[{compiler, gnuc}, {version, ~"4.4.5"}],
+                [{compiler, gnuc}, {version, ~"4.4"}],
+                [{compiler, msc}, {version, ~"1600"}]],
 
     ?assertEqual(Expected, [folsom_vm_metrics:convert_system_info(c_compiler_used, {Compiler, Version})
                              || {Compiler, Version} <- Test]).
@@ -575,7 +575,7 @@ check_ets_leak() ->
 
     [spawn(
        fun() ->
-               folsom_metrics:notify(history_ets_leak, <<"hist">>, history)
+               folsom_metrics:notify(history_ets_leak, ~"hist", history)
        end) || _ <- lists:seq(1, 1000)],
     receive
     after 100 ->
