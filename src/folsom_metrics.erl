@@ -148,16 +148,40 @@ notify(Name, Event, Type, Tags) ->
     folsom_ets:tagged_notify(Name, Event, Type, Tags).
 
 safely_notify(Event) ->
-  catch notify(Event).
+  Result = try notify(Event)
+  catch
+      throw:Reason -> Reason;
+      error:Reason:Stack -> {'EXIT', {Reason, Stack}};
+      exit:Reason -> {'EXIT', Reason}
+  end,
+  Result.
 
 safely_notify(Name, Event) ->
-  catch notify(Name, Event).
+    Result = try notify(Name, Event)
+    catch
+        throw:Reason -> Reason;
+        error:Reason:Stack -> {'EXIT', {Reason, Stack}};
+        exit:Reason -> {'EXIT', Reason}
+    end,
+    Result.
 
 safely_notify(Name, Event, Type) ->
-  catch notify(Name, Event, Type).
+    Result = try notify(Name, Event, Type)
+    catch
+        throw:Reason -> Reason;
+        error:Reason:Stack -> {'EXIT', {Reason, Stack}};
+        exit:Reason -> {'EXIT', Reason}
+    end,
+    Result.
 
 safely_notify(Name, Event, Type, Tags) ->
-  catch notify(Name, Event, Type, Tags).
+    Result = try notify(Name, Event, Type, Tags)
+    catch
+        throw:Reason -> Reason;
+        error:Reason:Stack -> {'EXIT', {Reason, Stack}};
+        exit:Reason -> {'EXIT', Reason}
+    end,
+    Result.
 
 notify_existing_metric(Name, Event, Type) ->
     folsom_ets:notify_existing_metric(Name, Event, Type).

@@ -708,7 +708,7 @@ input_validation_test() ->
     ],
     lists:foreach(fun({CodePoint, UTF8}) ->
         Expect = list_to_binary(xmerl_ucs:to_utf8(CodePoint)),
-        Expect = decode(UTF8)
+        ?assertEqual(Expect, decode(UTF8))
     end, Good),
 
     Bad = [

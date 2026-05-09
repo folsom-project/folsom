@@ -157,7 +157,7 @@ tick(Moment) ->
     Moment+IncrBy.
 
 update(Sample, Val) ->
-    Sample = folsom_sample_slide:update(Sample, Val),
+    ?assertEqual(Sample, folsom_sample_slide:update(Sample, Val)),
     Val.
 
 trim(Sample, Window) ->

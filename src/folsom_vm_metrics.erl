@@ -187,19 +187,23 @@ get_port_info(Port) ->
                                ])).
 
 get_socket_getstat(Socket) ->
-    case catch inet:getstat(Socket) of
+    try inet:getstat(Socket) of
         {ok, Info} ->
             Info;
         _ ->
             []
+        catch
+            _:_ -> []
     end.
 
 get_socket_status(Socket) ->
-    case catch prim_inet:getstatus(Socket) of
+    try prim_inet:getstatus(Socket) of
         {ok, Status} ->
             [{status, Status}];
         _ ->
          []
+        catch
+            _:_ -> []
     end.
 
 get_erlang_port_info(Port) ->
@@ -211,22 +215,26 @@ get_erlang_port_info(Port) ->
     end.
 
 get_socket_type(Socket) ->
-    case catch prim_inet:gettype(Socket) of
+    try prim_inet:gettype(Socket) of
         {ok, Type} ->
             [{type, tuple_to_list(Type)}];
         _ ->
          []
+        catch
+            _:_ -> []
     end.
 
 get_socket_opts(Socket) ->
     [get_socket_opts(Socket, Key) || Key <- ?SOCKET_OPTS].
 
 get_socket_opts(Socket, Key) ->
-    case catch inet:getopts(Socket, [Key]) of
+    try inet:getopts(Socket, [Key]) of
         {ok, Opt} ->
             Opt;
         _ ->
             []
+        catch
+            _:_ -> []
     end.
 
 get_socket_protocol(Socket) ->
@@ -242,11 +250,13 @@ get_socket_protocol(Socket) ->
     end.
 
 get_socket_sockname(Socket) ->
-    case catch inet:sockname(Socket) of
+    try inet:sockname(Socket) of
         {ok, {Ip, Port}} ->
             [{ip, ip_to_binary(Ip)}, {port, Port}];
         _ ->
             []
+        catch
+            _:_ -> []
     end.
 
 get_ets_dets_info(Type, Tab) ->
@@ -257,7 +267,7 @@ get_ets_dets_info(Type, Tab) ->
     end.
 
 ip_to_binary(Tuple) ->
-    iolist_to_binary(string:join(lists:map(fun integer_to_list/1, tuple_to_list(Tuple)), ".")).
+    iolist_to_binary(string:join([integer_to_list(L) || L <:- Tuple], ".")).
 
 convert_port_info({name, Name}) ->
     {name, list_to_binary(Name)};
