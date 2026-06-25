@@ -267,7 +267,7 @@ get_ets_dets_info(Type, Tab) ->
     end.
 
 ip_to_binary(Tuple) ->
-    iolist_to_binary(string:join([integer_to_list(L) || L <:- Tuple], ".")).
+    iolist_to_binary(string:join([integer_to_list(L) || L <- tuple_to_list(Tuple)], ".")).
 
 convert_port_info({name, Name}) ->
     {name, list_to_binary(Name)};
